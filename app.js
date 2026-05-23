@@ -1,6 +1,8 @@
 const app = document.getElementById('app');
 
 const initialHand = ['3♠', '7♦', '9♠', 'J♣', 'Q♥', '2♣'];
+const cpuPlayers = ['CPU 1', 'CPU 2', 'CPU 3'];
+const turnOrder = ['あなた', ...cpuPlayers];
 
 const state = {
   route: 'top',
@@ -13,6 +15,15 @@ function createNewGameState() {
     table: [],
     selectedCards: [],
     message: 'カードを選んでください',
+    currentTurnIndex: 0,
+    players: [
+      { name: 'あなた', handCount: initialHand.length, isCpu: false },
+      ...cpuPlayers.map((name) => ({
+        name,
+        handCount: 6,
+        isCpu: true,
+      })),
+    ],
   };
 }
 
@@ -42,7 +53,41 @@ function toggleCardSelection(card) {
   render();
 }
 
+function nextTurn() {
+  state.game.currentTurnIndex = (state.game.currentTurnIndex + 1) % turnOrder.length;
+}
+
+function runCpuTurnsUntilPlayer() {
+  const logs = [];
+  let safety = 0;
+
+  while (state.game.currentTurnIndex !== 0 && safety < 20) {
+    const cpu = state.game.players[state.game.currentTurnIndex];
+    if (!cpu || !cpu.isCpu) break;
+
+    if (cpu.handCount <= 0 || Math.random() < 0.35) {
+      logs.push(`${cpu.name} はパス`);
+    } else {
+      cpu.handCount -= 1;
+      const cpuCard = `CPU札${Math.floor(Math.random() * 13) + 1}`;
+      state.game.table = [cpuCard];
+      logs.push(`${cpu.name} がカードを出しました`);
+    }
+
+    nextTurn();
+    safety += 1;
+  }
+
+  return logs;
+}
+
 function playSelectedCards() {
+  if (state.game.currentTurnIndex !== 0) {
+    state.game.message = 'あなたのターンまでお待ちください';
+    render();
+    return;
+  }
+
   if (state.game.selectedCards.length === 0) {
     state.game.message = 'カードを選んでください';
     render();
@@ -61,14 +106,28 @@ function playSelectedCards() {
     return true;
   });
 
+  state.game.players[0].handCount = state.game.hand.length;
   state.game.table = played;
   state.game.selectedCards = [];
-  state.game.message = `${played.join(' ')} を出しました`;
+
+  nextTurn();
+  const cpuLogs = runCpuTurnsUntilPlayer();
+  const cpuSummary = cpuLogs.length ? ` / ${cpuLogs.join(' / ')}` : '';
+  state.game.message = `${played.join(' ')} を出しました${cpuSummary}`;
   render();
 }
 
 function passTurn() {
-  state.game.message = 'パスしました';
+  if (state.game.currentTurnIndex !== 0) {
+    state.game.message = 'あなたのターンまでお待ちください';
+    render();
+    return;
+  }
+
+  nextTurn();
+  const cpuLogs = runCpuTurnsUntilPlayer();
+  const cpuSummary = cpuLogs.length ? ` / ${cpuLogs.join(' / ')}` : '';
+  state.game.message = `あなたはパスしました${cpuSummary}`;
   render();
 }
 
@@ -88,7 +147,7 @@ const templates = {
           <ul>
             <li>画面デザインの確認</li>
             <li>画面遷移の確認</li>
-            <li>1人用の手札操作確認</li>
+            <li>4人対戦風（あなた+CPU3人）の手札操作確認</li>
           </ul>
         </div>
         <div class="card">
@@ -115,11 +174,11 @@ const templates = {
   rooms: `
     <section class="screen">
       <h2>ルーム一覧（モック）</h2>
-      <p>オンライン対戦は未実装です。ゲーム画面で1人動作確認を行ってください。</p>
+      <p>オンライン対戦は未実装です。ゲーム画面で4人対戦風の動作確認を行ってください。</p>
       <div class="grid rooms">
         <article class="card">
           <h3>🧪 動作確認ルーム</h3>
-          <p>参加者: 1/1</p>
+          <p>参加者: 4/4（あなた + CPU3人）</p>
           <button onclick="go('game')">入室</button>
         </article>
       </div>
@@ -141,11 +200,22 @@ function gameTemplate() {
     })
     .join('');
 
+  const players = state.game.players
+    .map((player, idx) => {
+      const active = idx === state.game.currentTurnIndex ? ' active' : '';
+      return `<div class="player-chip${active}">${player.name}<span>手札 ${player.handCount}枚</span></div>`;
+    })
+    .join('');
+
   return `
     <section class="screen">
-      <h2>ゲーム画面（1人用確認版）</h2>
-      <p>現在のターン: あなた</p>
+      <h2>ゲーム画面（4人対戦風）</h2>
+      <p>現在のターン: <strong>${turnOrder[state.game.currentTurnIndex]}</strong></p>
       <div class="card">
+        <h3>プレイヤー状況</h3>
+        <div class="players-row">${players}</div>
+      </div>
+      <div class="card" style="margin-top:12px;">
         <h3>場に出ているカード</h3>
         <div class="cards-row">${tableCards}</div>
       </div>
