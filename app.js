@@ -127,7 +127,7 @@ function passTurn() {
   nextTurn();
   const cpuLogs = runCpuTurnsUntilPlayer();
   const cpuSummary = cpuLogs.length ? ` / ${cpuLogs.join(' / ')}` : '';
-  state.game.message = `あなたはパスしました${cpuSummary}`;
+  state.game.message = `パスしました${cpuSummary}`;
   render();
 }
 
@@ -140,21 +140,31 @@ const templates = {
   top: `
     <section class="screen">
       <h2>トップ画面</h2>
+      <h3>つなサポ大富豪</h3>
       <p>ようこそ！このアプリは、つなサポサイトから利用する<strong>大富豪</strong>の動作確認版です。</p>
       <div class="grid">
         <div class="card">
-          <h3>🎯 できること（今）</h3>
+          <h3>できること</h3>
           <ul>
-            <li>画面デザインの確認</li>
-            <li>画面遷移の確認</li>
-            <li>4人対戦風（あなた+CPU3人）の手札操作確認</li>
+            <li>トップ画面 / ログイン画面 / ルーム一覧 / ゲーム画面の移動確認</li>
+            <li>ゲーム画面でカード選択、カードを出す、パス、新しく配るの動作確認</li>
+            <li>4人対戦風（あなた+CPU3人）のターン進行表示</li>
           </ul>
         </div>
         <div class="card">
-          <h3>🚀 次のステップ</h3>
-          <p>ゲーム画面で「カード選択」「カードを出す」「パス」「新しく配る」を試せます。</p>
-          <button class="btn" onclick="go('game')">ゲームへ</button>
+          <h3>遊び方</h3>
+          <ol>
+            <li>ゲーム画面へ移動</li>
+            <li>手札をクリックして選択</li>
+            <li>「カードを出す」で場に出す / 「パス」でターンを渡す</li>
+            <li>「新しく配る」で初期状態に戻す</li>
+          </ol>
         </div>
+      </div>
+      <div class="actions-row top-links">
+        <button onclick="go('login')">ログインへ</button>
+        <button onclick="go('rooms')">ルーム一覧へ</button>
+        <button onclick="go('game')">ゲームへ</button>
       </div>
     </section>
   `,
