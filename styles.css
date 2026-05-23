@@ -104,12 +104,21 @@ input {
   position: sticky;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   padding: 10px;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   background: #ffffffdd;
   backdrop-filter: blur(4px);
   border-top: 2px solid #bfdbfe;
+}
+
+.bottom-nav button {
+  min-width: 0;
+  font-size: 14px;
+  padding: 10px 8px;
 }
 
 .cards-row {
@@ -131,8 +140,45 @@ input {
   font-weight: 700;
 }
 
+.card-button {
+  color: var(--text);
+  border-radius: 8px;
+}
+
+.card-button.selected {
+  border-color: #2563eb;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+}
+
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.message-area {
+  margin: 12px 0 0;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.empty-note {
+  margin: 4px 0;
+  color: #64748b;
+}
+
 @media (max-width: 600px) {
+  main {
+    padding: 12px;
+  }
+
+  .screen {
+    padding: 16px;
+  }
+
   .bottom-nav {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
   }
 }
