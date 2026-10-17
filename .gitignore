@@ -1,0 +1,5 @@
+releases/
+plugin-ui/dist/
+plugin-ui/screenshots/
+plugin-ui/baseline-v0.3.2.zip
+__pycache__/

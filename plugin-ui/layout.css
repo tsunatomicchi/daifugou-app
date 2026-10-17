@@ -1,0 +1,134 @@
+/* Display-only additions to the verified v0.3.2 plugin. */
+.df-root.on-root.df-open {
+  --on-title-size: 16px;
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: auto;
+  transform: none;
+  width: 60vw;
+  height: 80dvh;
+}
+.df-root.on-root.df-closed { left: 8px; right: auto; bottom: calc(20dvh + 8px); }
+.df-root.on-root.df-open .df-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  display: grid;
+  grid-template-rows: 44px minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: 0 12px 12px 0;
+}
+.df-root.on-root.df-open .df-header { min-height: 0; padding: 4px 10px; gap: 6px; }
+.df-root.on-root.df-open .df-brand { min-width: 0; gap: 7px; }
+.df-root.on-root.df-open .df-brand > div { min-width: 0; }
+.df-root.on-root.df-open .df-brand h1 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.df-root.on-root.df-open .df-brand-icon { width: 25px; height: 30px; font-size: 22px; }
+.df-root.on-root.df-open .df-brand-kicker { font-size: 7px; }
+.df-root.on-root.df-open .df-header-actions { flex-shrink: 0; gap: 4px; }
+.df-root.on-root.df-open .df-icon-button,
+.df-root.on-root.df-open .df-header-button { min-height: 30px; min-width: 29px; padding: 3px 6px; }
+.df-root.on-root.df-open .df-header-button { font-size: 10px; white-space: nowrap; }
+.df-root.on-root.df-open .df-game {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 25px minmax(0, 1fr) 23px;
+  gap: 3px;
+  padding: 4px 6px 2px;
+}
+.df-root.on-root.df-open .df-match-heading { margin: 0; gap: 4px; }
+.df-root.on-root.df-open .df-match-heading h2 { font-size: 14px; margin: 0; }
+.df-root.on-root.df-open .df-match-heading h2 span,
+.df-root.on-root.df-open .df-match-heading .df-eyebrow { display: none; }
+.df-root.on-root.df-open .df-rule-badges { gap: 3px; }
+.df-root.on-root.df-open .df-rule-badges span { font-size: 9px; padding: 2px 5px; }
+.df-root.on-root.df-open .df-game-layout { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 0; }
+.df-root.on-root.df-open .df-sidebar { display: none; }
+.df-root.on-root.df-open .df-play-area { padding: 3px; min-height: 0; }
+.df-root.on-root.df-open .on-table { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); padding: 4px; gap: 3px; }
+.df-root.on-root.df-open .on-opponents { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
+.df-root.on-root.df-open .on-seat { width: auto; padding: 3px 5px; }
+.df-root.on-root.df-open .on-person { gap: 5px; line-height: 1.2; }
+.df-root.on-root.df-open .on-person .on-avatar { display: grid; width: 22px; height: 22px; flex-basis: 22px; }
+.df-root.on-root.df-open .on-person strong { max-width: none; font-size: 10px; }
+.df-root.on-root.df-open .on-person small { font-size: 9px; }
+.df-root.on-root.df-open .on-backs,
+.df-root.on-root.df-open .on-last-action { display: none; }
+.df-root.on-root.df-open .on-center { min-height: 0; height: auto; padding: 0; }
+.df-root.on-root.df-open .df-table-label { font-size: 10px; line-height: 1.2; }
+.df-root.on-root.df-open .df-table-bottomline { font-size: 11px; line-height: 1.2; }
+.df-root.on-root.df-open .df-table-cards { padding: 3px 0; }
+.df-root.on-root.df-open .df-table-cards .df-card { width: clamp(44px, 9dvh, 98px); height: auto; aspect-ratio: .72; }
+.df-root.on-root.df-open .df-empty-table { display: block; padding: 0; }
+.df-root.on-root.df-open .df-empty-slots { height: 28px; }
+.df-root.on-root.df-open .df-empty-slots span { width: 25px; height: 28px; }
+.df-root.on-root.df-open .df-empty-slots span + span { margin-left: -17px; }
+.df-root.on-root.df-open .df-empty-table p { font-size: 9px; }
+.df-root.on-root.df-open .df-hand-section { padding: 2px 6px 5px; margin: 0; }
+.df-root.on-root.df-open .df-hand-heading { min-height: 22px; padding: 2px 0; }
+.df-root.on-root.df-open .df-hand {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+  min-height: 0;
+  padding: 5px 2px;
+  overflow: visible;
+}
+.df-root.on-root.df-open .df-hand .df-card {
+  width: min(100%, 100px, 14dvh);
+  height: auto;
+  aspect-ratio: .72;
+  margin: 0;
+  transform: none;
+}
+.df-root.on-root.df-open .df-hand:has(.df-card:nth-child(7)) { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.df-root.on-root.df-open .df-hand:has(.df-card:nth-child(7)) .df-card { width: min(100%, 96px, 11.5dvh); }
+.df-root.on-root.df-open .df-feedback { min-height: 27px; font-size: 11px; line-height: 1.3; padding: 4px 6px; margin: 2px 0 4px; }
+.df-root.on-root.df-open .df-controls { grid-template-columns: auto auto auto minmax(100px, 1fr); gap: 5px; padding-top: 4px; }
+.df-root.on-root.df-open .df-controls > button { min-height: 33px; padding: 6px 8px; font-size: 12px; }
+.df-root.on-root.df-open .df-game-footer { margin: 0; padding: 0; font-size: 9px; }
+.df-root.on-root.df-open .on-management { gap: 10px; }
+.df-root.on-root.df-open .on-management button { font-size: 10px; padding: 2px; }
+.df-root.on-root.df-open .df-rules { position: absolute; inset: 44px 0 0; z-index: 5; overflow: auto; }
+.df-root.on-root.df-open .on-welcome { min-height: 0; padding: 18px; }
+.df-root.on-root.df-open .on-welcome h2 { font-size: 24px; margin: 8px 0; }
+.df-root.on-root.df-open .on-welcome > p:not(.df-eyebrow) { margin: 10px 0; }
+.df-root.on-root.df-open .on-lobby { min-height: 0; padding: 14px; }
+.df-root.on-root.df-open .on-lobby h2 { font-size: 20px; }
+.df-root.on-root.df-open .on-roster { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 4px; margin: 8px 0; }
+.df-root.on-root.df-open .on-roster-person { padding: 4px 6px; gap: 6px; }
+.df-root.on-root.df-open .on-roster-person > div { min-width: 0; }
+.df-root.on-root.df-open .on-roster-person strong { font-size: 11px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.df-root.on-root.df-open .on-roster-person small { font-size: 8px; line-height: 1.1; margin-top: 1px; }
+.df-root.on-root.df-open .on-roster-person .on-avatar { width: 26px; height: 26px; flex-basis: 26px; }
+.df-root.on-root.df-open .on-lobby-help { margin: 8px 0; }
+@media (max-height: 650px) {
+  .df-root.on-root.df-open .on-lobby { padding: 10px; }
+  .df-root.on-root.df-open .on-lobby-heading .df-eyebrow { display: none; }
+  .df-root.on-root.df-open .on-lobby h2 { font-size: 17px; line-height: 1.2; margin: 3px 0; }
+  .df-root.on-root.df-open .on-lobby-heading p:not(.df-eyebrow) { font-size: 10px; line-height: 1.3; }
+  .df-root.on-root.df-open .on-player-total { font-size: 30px; line-height: 1.2; }
+  .df-root.on-root.df-open .on-lobby .df-primary { min-height: 34px; padding: 7px 12px; font-size: 12px; }
+  .df-root.on-root.df-open .on-lobby-help { font-size: 10px; margin: 4px 0; line-height: 1.5; }
+  .df-root.on-root.df-open .on-lobby > .df-text-button { font-size: 10px; padding: 4px; }
+  .df-root.on-root.df-open .df-table-cards .df-card { width: clamp(32px, 7dvh, 58px); }
+  .df-root.on-root.df-open .on-table { grid-template-columns: 1.1fr 1fr; grid-template-rows: minmax(0, 1fr); align-items: center; }
+  .df-root.on-root.df-open .on-person .on-avatar { display: none; }
+  .df-root.on-root.df-open .on-person strong { font-size: 9px; }
+  .df-root.on-root.df-open .on-person small { font-size: 8px; }
+  .df-root.on-root.df-open .on-opponents { align-self: center; }
+  .df-root.on-root.df-open .df-empty-table { display: none; }
+}
+@media (max-width: 800px) {
+  .df-root.on-root.df-open { --on-title-size: 12px; }
+  .df-root.on-root.df-open .df-brand-icon,
+  .df-root.on-root.df-open .df-brand-kicker,
+  .df-root.on-root.df-open .df-hand-guide { display: none; }
+  .df-root.on-root.df-open .df-header { padding: 3px 5px; }
+  .df-root.on-root.df-open .df-hand:has(.df-card:nth-child(7)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .df-root.on-root.df-open .df-hand:has(.df-card:nth-child(7)) .df-card { width: min(100%, 8dvh); }
+  .df-root.on-root.df-open .df-controls { gap: 3px; grid-template-columns: auto auto minmax(70px,1fr); }
+  .df-root.on-root.df-open .df-controls .df-clear { display: none; }
+  .df-root.on-root.df-open .df-controls > button { font-size: 10px; padding: 6px 4px; }
+}
